@@ -72,9 +72,6 @@ This is a very limited project with this version but it will develop very soon.
 
 
 # Result
-I tried a toy CNN model with 4 CNN layers with different filter sizes (16, 32, 64) and kernel sizes (1, 3) to maximise score in 10 epochs of training on CIFAR-10.
-
-After 50 steps, it converges to the "state space" of (3x3, 64)-(3x3, 64)-(3x3, 32)-(3x3, 64). Interestingly, this model performs very slightly better than a 4 x (3x3, 64) model, at least in the first 10 epochs.
 
 <img src="https://github.com/n1tesla/DeepAutoTraining/blob/main/images/anomalies.png?raw=true" height=100% width=100%>
 
