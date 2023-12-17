@@ -24,17 +24,17 @@ At a high level : For full training details, please see `train.py`.
 
 ```python
 # Search Hyperparameter function
-    def search_hyperparam(self):
+def search_hyperparam(self):
 
-        hypermodel=self.network
-        callbacks=self.define_callback(early_stop=True,reduceLR=True)
-        tuner=BayesianOptimization(hypermodel,objective=keras_tuner.Objective("val_loss",direction="min")
-                                   ,seed=1,max_trials=self.config.max_trials, directory=os.path.normpath(self.cwd),project_name='RS',overwrite=True)
+    hypermodel=self.network
+    callbacks=self.define_callback(early_stop=True,reduceLR=True)
+    tuner=BayesianOptimization(hypermodel,objective=keras_tuner.Objective("val_loss",direction="min")
+                               ,seed=1,max_trials=self.config.max_trials, directory=os.path.normpath(self.cwd),project_name='RS',overwrite=True)
 
-        tuner.search_space_summary()
-        tuner.search(self.X_train,self.y_train,validation_split=self.parameters_dict["val_ratio"],callbacks=callbacks,batch_size=self.parameters_dict['batch_size'],
-                     verbose=1,epochs=self.config.epochs,use_multiprocessing=True)
-        return tuner
+    tuner.search_space_summary()
+    tuner.search(self.X_train,self.y_train,validation_split=self.parameters_dict["val_ratio"],callbacks=callbacks,batch_size=self.parameters_dict['batch_size'],
+                 verbose=1,epochs=self.config.epochs,use_multiprocessing=True)
+    return tuner
 ```
 
 
@@ -78,5 +78,3 @@ After 50 steps, it converges to the "state space" of (3x3, 64)-(3x3, 64)-(3x3, 3
 
 <img src="https://github.com/n1tesla/DeepAutoTraining/blob/main/images/anomalies.png?raw=true" height=100% width=100%>
 
-# Acknowledgements
-Code heavily inspired by [wallarm/nascell-automl](https://github.com/wallarm/nascell-automl)
