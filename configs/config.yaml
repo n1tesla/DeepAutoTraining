@@ -1,0 +1,78 @@
+DATA:
+    QUICK_DATA:
+      window_size : [30]
+      stride_size : [1]
+      features : ["close"]
+      id_features: ["date"]
+      scaler : [standard]
+      validation_ratio: [ 0.15 ]
+      test_ratio: 0.05
+      THRESHOLD: 0.45
+
+    MID_DATA:
+      window_size: [48,64]
+      stride_size: [1]
+      features : ["close"]
+      id_features: ["date"]
+      scaler : [standard]
+      validation_ratio: [ 0.15 ]
+      test_ratio: 0.05
+      THRESHOLD: 0.38
+
+
+
+QUICK:
+  ANOMALY:
+    LSTM:
+      module_name : "lstm"
+      network_name : "LSTM_AnomalyNetwork"
+      batch_size : [512]
+      epochs : 5
+      max_trials : 2
+
+    LSTM_NAS:
+      module_name: "lstm"
+      network_name: "LSTM_NAS"
+      NUM_LAYERS: 4
+      MAX_TRIALS: 10
+      MAX_EPOCHS: 10
+      BATCH_SIZE: 512
+      CHILD_BATCHSIZE: 128
+      EXPLORATION: 0.8
+      REGULARIZATION: 0.001
+      CONTROLLER_CELLS: 32
+      EMBEDDING_DIM: 20
+      ACCURACY_BETA: 0.8
+      CLIP_REWARDS: 0.0
+      RESTORE_CONTROLLER: True
+
+
+MID:
+  ANOMALY:
+    LSTM:
+      module_name : "lstm"
+      network_name : "LSTM_AnomalyNetwork"
+      batch_size : [512]
+      epochs : 1000
+      max_trials : 10
+
+    LSTM_NAS:
+      module_name: "lstm"
+      network_name: "LSTM_NAS"
+      NUM_LAYERS: 2
+      MAX_TRIALS: 10
+      MAX_EPOCHS: 10
+      BATCH_SIZE: 512
+      CHILD_BATCHSIZE: 128
+      EXPLORATION: 0.8
+      REGULARIZATION: 0.001
+      CONTROLLER_CELLS: 32
+      EMBEDDING_DIM: 20
+      ACCURACY_BETA: 0.8
+      CLIP_REWARDS: 0.0
+      RESTORE_CONTROLLER: True
+
+
+
+
+
