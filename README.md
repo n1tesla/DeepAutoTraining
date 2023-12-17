@@ -70,6 +70,22 @@ class LSTM_AnomalyNetwork(HyperModel):
 # Implementation details
 This is a very limited project with this version but it will develop very soon. 
 
+# Some Additional Features
+
+- To run mlflow ui, run this command under DeepAutoTraining directory:
+```
+mlflow ui
+```
+
+<img src="https://github.com/n1tesla/DeepAutoTraining/blob/main/images/mlflow_ui.png?raw=true" height=100% width=100%>
+
+- To see tensorboard graphs, run this command under saved_models/LSTM_observation_name/time_path/models directory:
+```
+tensorboard --logdir tensorboard/
+```
+
+<img src="https://github.com/n1tesla/DeepAutoTraining/blob/main/images/mlflow_ui.png?raw=true" height=100% width=100%>
+
 
 # Result
 
