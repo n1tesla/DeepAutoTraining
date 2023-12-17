@@ -86,7 +86,6 @@ tensorboard --logdir tensorboard/
 
 <img src="https://raw.githubusercontent.com/n1tesla/DeepAutoTraining/fa9f277b11877aafbf77dc377fa7aaefc25f3873/images/epoch_loss.svg" height=100% width=100%>
 
-
 # Result
 
 <img src="https://github.com/n1tesla/DeepAutoTraining/blob/main/images/anomalies.png?raw=true" height=100% width=100%>
