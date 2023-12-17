@@ -13,7 +13,7 @@ pip install -r requirements.txt
 # Usage
 At a high level : For full training details, please see `train.py`.
 
-<img src="https://github.com/n1tesla/PythonProjects/tree/master/anomaly_detection/images/start_training.PNG?raw=true" height=100% width=100%>
+<img src="https://github.com/n1tesla/DeepAutoTraining/blob/main/images/start_training.png?raw=true" height=100% width=100%>
 
 - Choose how deep are you going to search for hyperparameters: `Quick`, `Mid`, `Deep`
 - Choose which problem are you going to solve it: `ANOMALY`, `REGRESSION`, `FORECASTING`, `CLASSIFICATION`
@@ -76,7 +76,7 @@ I tried a toy CNN model with 4 CNN layers with different filter sizes (16, 32, 6
 
 After 50 steps, it converges to the "state space" of (3x3, 64)-(3x3, 64)-(3x3, 32)-(3x3, 64). Interestingly, this model performs very slightly better than a 4 x (3x3, 64) model, at least in the first 10 epochs.
 
-<img src="https://github.com/n1tesla/PythonProjects/tree/master/anomaly_detection/images/anomalies.PNG?raw=true" height=100% width=100%>
+<img src="https://github.com/n1tesla/DeepAutoTraining/blob/main/images/anomalies.png?raw=true" height=100% width=100%>
 
 # Acknowledgements
 Code heavily inspired by [wallarm/nascell-automl](https://github.com/wallarm/nascell-automl)
