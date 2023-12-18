@@ -1,25 +1,35 @@
 import os
 from json import dump
+from typing import Tuple, Dict, List, Any
+
 import numpy as np
 import pandas as pd
 import pickle
 
 
-class PREPARATION:
+class DataPreparation:
     def __init__(self,
                  config,
                  window_size,
                  stride_size,
                  scaler_type,
                  ):
+        """
+        Initialize the DataPreparation class.
 
+        Parameters:
+        - config: Configuration parameters.
+        - window_size: Size of the sliding window.
+        - stride_size: Stride size for the sliding window.
+        - scaler_type: Type of scaler to be used ('robust', 'minmax', or 'standard').
+        """
         self.config=config
         self.window_size=window_size
         self.stride_size=stride_size
         self.scaler_type=scaler_type
 
 
-    def create_dataset(self,data_path):
+    def create_dataset(self, data_path: str) -> Tuple[Dict[str, List[np.ndarray]], pd.DataFrame, pd.DataFrame, Any]:
 
         df=self.read_data()
         train,test=self.split_data(df)
@@ -29,16 +39,26 @@ class PREPARATION:
         for k, v in dataset_dict.items():
             #putting X and y into dictionary.
             # {'df_train': [X_train_array, y_train_array], 'df_test': [X_test_array,y_test_array]}
-            dataset_dict[k] = self.SlidingWindow(v)
+            dataset_dict[k] = self.sliding_window(v)
         return dataset_dict,df_train,df_test,scaler
 
-    def read_data(self):
+    def read_data(self) -> pd.DataFrame:
         df = pd.read_csv('data/spx.csv', index_col='date')
         print(f"df_head: {df.head()}")
         return df
 
 
-    def split_data(self,df):
+    def split_data(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
+        """
+        Split the input DataFrame into training and testing sets.
+
+        Parameters:
+        - df: Input DataFrame.
+
+        Returns:
+        - df_train: Training DataFrame.
+        - df_test: Testing DataFrame.
+        """
         train_size = int(len(df) * (1-self.config.test_ratio))
         df_train, df_test = df.iloc[0:train_size], df.iloc[train_size:]
         print(f"Train size: {train_size}, Test size: {len(df)-train_size}")
@@ -68,10 +88,15 @@ class PREPARATION:
             pickle.dump(scaler_model, file)
         return df_train,df_test,scaler_model
 
-    def SlidingWindow(self, df: pd.core.frame.DataFrame) -> list:
+    def sliding_window(self, df: pd.DataFrame) -> List[np.ndarray]:
         """
-        @param df: Dataframe samples will be converted to Windowed array.
-        @return: list of X_train and y_train
+        Apply the sliding window technique to convert the input DataFrame into a list of input-output pairs.
+
+        Parameters:
+        - df: Input DataFrame.
+
+        Returns:
+        - List containing X_train and y_train arrays.
         """
         WindowedX,WindowedY=[],[]
         arr=df.to_numpy()
@@ -89,11 +114,16 @@ class PREPARATION:
 
 def extract_window(arr: np.ndarray, size: int, stride: int) -> np.ndarray:
     """
-    @param arr: Unique Unit number
-    @param size: Window size, also used in LSTM input shape (sample_size, feature_size,window_size)
-    @param stride: Also called step size
-    @return:
-    """
+     Extract windowed examples from the input array with a specified window size and stride.
+
+     Parameters:
+     - arr: Input array.
+     - size: Window size.
+     - stride: Stride size.
+
+     Returns:
+     - np.ndarray containing windowed examples.
+     """
     examples=[]
 
     min_len = size - 1
@@ -106,10 +136,15 @@ def extract_window(arr: np.ndarray, size: int, stride: int) -> np.ndarray:
 
 def extract_labels(arr: np.ndarray, size: int, stride: int) -> np.ndarray:
     """
-    @param arr:
-    @param size:
-    @param stride:
-    @return:
+    Extract labels from the input array based on the window size and stride.
+
+    Parameters:
+    - arr: Input array.
+    - size: Window size.
+    - stride: Stride size.
+
+    Returns:
+    - np.ndarray containing labels.
     """
     examples = []
     max_len = len(arr) - size

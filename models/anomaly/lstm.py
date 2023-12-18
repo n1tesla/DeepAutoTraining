@@ -10,8 +10,16 @@ class LSTM_AnomalyNetwork(HyperModel):
         self.input_shape=input_shape
         self.nb_output=nb_output
 
-    def build(self,hp):
+    def build(self,hp)-> Model:
+        """
+        Build the LSTM-based Anomaly Detection model.
 
+        Parameters:
+        - hp: HyperParameters object for tuning.
+
+        Returns:
+        - Keras Model object.
+        """
         input_layer=Input(self.input_shape)
         lstm1=LSTM(units=hp.Choice(f"LSTM_1_units",values=[128,256]))(input_layer) #128
         dropout1=Dropout(rate=hp.Float(f"Dropout_1_rate",min_value=0.2,max_value=0.7))(lstm1)   #0.55
