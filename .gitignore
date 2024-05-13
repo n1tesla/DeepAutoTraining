@@ -1,6 +1,7 @@
 /saved_models
 /RS
 /mlruns
+/k
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
